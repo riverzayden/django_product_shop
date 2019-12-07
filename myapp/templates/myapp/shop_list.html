@@ -1,9 +1,19 @@
+{% if messages %}
+    메세지<br/>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+        {{message.tags}}
+        {{message.message}} <br/>
+        </div>
+    {% endfor %}
+{% endif %}
     <div class="mb-3">
         <form action="" method="GET">
             <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="검색어를 입력해주세요" />
             <input type="submit" value="search" class="btn btn-secondary" />
         </form>
     </div>
+    <a href="{% url "myapp:shop_new" %}" class="btn btn-primary">생성하기</a>
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-title">
@@ -20,7 +30,7 @@
             {% for shop in shop_list %}
                 <tr>
                     <td>
-                        <a href="/myapp/{{shop.pk}}/"> <!--</a><a href="{{ shop.get_absolute_url }}">  <a href="/shop/{{item.pk}}/">-->
+                        <a href="{{ shop.get_absolute_url }}"> 
                             {{shop.거래처코드}}
                         </a>
                     </td>
@@ -28,16 +38,27 @@
                     <td>{{shop.생성시간}}</td>
                     <td>{{shop.수정시간}}</td>
                     <td>{{shop.내용}}</td>
-                    <td><a href="" %}>
+                    <td><a href="{% url "myapp:shop_edit" pk=shop.거래처코드%}" %}>
                         수정
                     </a></td>
-                    <td><a href="" %}>
-                        삭제
-                    </a></td>
+                    <td><form method="POST" action="{% url "myapp:shop_delete" pk=shop.거래처코드%}" %}">
+                            {% csrf_token %}<input type="submit" value="삭제" onclick="button_event();">
+                         </form></td>
                 <tr>
             {% endfor %}
         </tbody>
     </table>
-
     <hr>
     </a>
+
+    <script type="text/javascript">
+        function button_event(){
+        if (confirm("정말 삭제하시겠습니까??") == true){ 
+            document.form.submit();
+        }else{  
+            return;
+        }
+        }
+        </script>
+         
+        

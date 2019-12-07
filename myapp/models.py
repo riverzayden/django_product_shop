@@ -1,6 +1,6 @@
 from django.db import models
 from ecount.utils import uuid_upload_to
-
+from django.urls import reverse
 
 class Shop(models.Model):
     거래처코드 = models.CharField(max_length=10, primary_key=True)
@@ -11,6 +11,9 @@ class Shop(models.Model):
 
     def __str__(self):
         return self.거래처코드
+
+    def get_absolute_url(self):
+        return reverse('myapp:shop_list')
 
 class Product(models.Model):
     품목코드= models.CharField(max_length=20)

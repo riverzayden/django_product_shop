@@ -2,6 +2,11 @@ import logging
 from django.shortcuts import render
 from .models import Shop, Product
 from django.shortcuts import get_object_or_404
+from .forms import ShopForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib import messages
+from django.urls import reverse, reverse_lazy
+
 logger = logging.getLogger(__name__)  ## shop.views
 
 
@@ -22,3 +27,28 @@ def shop_detail(request,pk):
     return render(request, 'myapp/shop_detail.html', {
         'shop':shop,
     })
+
+class ShopCreateView(CreateView):
+    model = Shop
+    form_class = ShopForm
+    template_name = 'myapp/shop_form.html'
+
+    def form_valid(self, form):
+        res = super().form_valid(form)
+        messages.success(self.request, '새 글을 저장했습니다.')
+        return res
+
+shop_new = ShopCreateView.as_view()
+
+class ShopUpdateView(UpdateView):
+    model=Shop
+    form_class = ShopForm
+
+shop_edit = ShopUpdateView.as_view()
+
+class ShopDeleteView(DeleteView):
+    model = Shop
+    def get_success_url(self):
+        return reverse('myapp:shop_list')
+
+shop_delete = ShopDeleteView.as_view()
