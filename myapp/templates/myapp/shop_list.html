@@ -1,0 +1,43 @@
+    <div class="mb-3">
+        <form action="" method="GET">
+            <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="검색어를 입력해주세요" />
+            <input type="submit" value="search" class="btn btn-secondary" />
+        </form>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-title">
+                <th><span>거래처코드</span></th>
+                <th><span>거래처명</span></th>
+                <th><span>생성시간</span></th>
+                <th><span>수정시간</span></th>
+                <th><span>내용</span></th>
+                <th><span>수정</span></th>
+                <th><span>삭제</span></th>
+            </tr>
+        </thead>        
+        <tbody>
+            {% for shop in shop_list %}
+                <tr>
+                    <td>
+                        <a href="/myapp/{{shop.pk}}/"> <!--</a><a href="{{ shop.get_absolute_url }}">  <a href="/shop/{{item.pk}}/">-->
+                            {{shop.거래처코드}}
+                        </a>
+                    </td>
+                    <td>{{shop.거래처명}}</td>
+                    <td>{{shop.생성시간}}</td>
+                    <td>{{shop.수정시간}}</td>
+                    <td>{{shop.내용}}</td>
+                    <td><a href="" %}>
+                        수정
+                    </a></td>
+                    <td><a href="" %}>
+                        삭제
+                    </a></td>
+                <tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    </a>

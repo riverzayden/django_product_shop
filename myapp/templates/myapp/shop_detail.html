@@ -1,0 +1,7 @@
+{% if shop.거래처명 %}
+    <p>
+        거래처명 : {{shop.거래처명}}
+    </p>
+{% endif %}
+<a href="{% url "myapp:shop_list" %}" class="btn btn-primary">목록</a>
+<a href=" class="btn btn-primary">삭제</a>
