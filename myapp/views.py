@@ -52,3 +52,17 @@ class ShopDeleteView(DeleteView):
         return reverse('myapp:shop_list')
 
 shop_delete = ShopDeleteView.as_view()
+
+
+
+
+##########################
+from django.shortcuts import render
+from .filters import ShopFilter
+
+def search(request):
+    Shop_list = Shop.objects.all()
+    print('---------------',Shop_list)
+    Shop_filter = ShopFilter(request.GET, queryset=Shop_list)
+    print(Shop_filter)
+    return render(request, 'myapp/shop_list_filter.html', {'filter': Shop_filter})

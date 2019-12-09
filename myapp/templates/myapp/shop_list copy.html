@@ -1,0 +1,90 @@
+{% load static %}
+{% load widget_tweaks %}
+{% if messages %}
+    메세지<br/>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+        {{message.tags}}
+        {{message.message}} <br/>
+        </div>
+    {% endfor %}
+{% endif %}
+<head>
+    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  </head>
+    <div class="mb-3">
+        <form action="" method="GET">
+            <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="검색어를 입력해주세요" />
+            <input type="submit" value="search" class="btn btn-secondary" />
+        </form>
+    </div>
+    <a href="{% url "myapp:shop_new" %}" class="btn btn-primary">생성하기</a>
+
+
+    <body>
+        <div class="container-fluid">
+            <table id="grades" class="datatable table table-hover table-bordered">
+                <thead>
+                    <tr class="table-title">
+                        <th><span>거래처코드</span></th>
+                        <th><span>거래처명</span></th>
+                        <th><span>생성시간</span></th>
+                        <th><span>수정시간</span></th>
+                        <th><span>내용</span></th>
+                        <!-- <th><span>수정</span></th>
+                        <th><span>삭제</span></th> -->
+                    </tr>
+                </thead>        
+                <tfoot>
+                    <tr>
+                      <th></th>
+                      <th>
+                        <input type="text" class="form-control input-sm filter-column">
+                      </th>
+                      <th>
+                        <input type="text" class="form-control input-sm filter-column" />
+                      </th>
+                      <th>
+                        <input type="text" class="form-control input-sm filter-column">
+                      </th>
+                      <th>
+                        <input type="text" class="form-control input-sm filter-column">
+                      </th>
+                    </tr>
+                  </tfoot>
+                <tbody>
+                    {% for shop in shop_list %}
+                        <tr>
+                            <td>
+                                <a href="{{ shop.get_absolute_url }}"> 
+                                    {{shop.거래처코드}}
+                                </a>
+                            </td>
+                            <td>{{shop.거래처명}}</td>
+                            <td>{{shop.생성시간}}</td>
+                            <td>{{shop.수정시간}}</td>
+                            <td>{{shop.내용}}</td>
+                        <tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+    <script type="text/javascript">
+        function button_event(){
+        if (confirm("정말 삭제하시겠습니까??") == true){ 
+            document.form.submit();
+        }else{  
+            return;
+        }
+        }
+    </script>
+    <script src="{% static "/js/jquery.min.js" %}"></script>
+    <script src="{% static "/js/table_sort.js" %}"></script>
+    <script src="{% static "/js/sort.js" %}"></script>
+
+</body>

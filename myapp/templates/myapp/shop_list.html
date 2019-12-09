@@ -1,3 +1,5 @@
+{% load static %}
+{% load widget_tweaks %}
 {% if messages %}
     메세지<br/>
     {% for message in messages %}
@@ -14,43 +16,34 @@
         </form>
     </div>
     <a href="{% url "myapp:shop_new" %}" class="btn btn-primary">생성하기</a>
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr class="table-title">
-                <th><span>거래처코드</span></th>
-                <th><span>거래처명</span></th>
-                <th><span>생성시간</span></th>
-                <th><span>수정시간</span></th>
-                <th><span>내용</span></th>
-                <th><span>수정</span></th>
-                <th><span>삭제</span></th>
-            </tr>
-        </thead>        
-        <tbody>
-            {% for shop in shop_list %}
-                <tr>
-                    <td>
-                        <a href="{{ shop.get_absolute_url }}"> 
-                            {{shop.거래처코드}}
-                        </a>
-                    </td>
-                    <td>{{shop.거래처명}}</td>
-                    <td>{{shop.생성시간}}</td>
-                    <td>{{shop.수정시간}}</td>
-                    <td>{{shop.내용}}</td>
-                    <td><a href="{% url "myapp:shop_edit" pk=shop.거래처코드%}" %}>
-                        수정
-                    </a></td>
-                    <td><form method="POST" action="{% url "myapp:shop_delete" pk=shop.거래처코드%}" %}">
-                            {% csrf_token %}<input type="submit" value="삭제" onclick="button_event();">
-                         </form></td>
-                <tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <hr>
-    </a>
 
+
+    <body>
+        <div class="container-fluid">
+            <table id="grades" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>아이디</th> <th>이름</th> <th>성</th>
+                    <th>가입일자</th> <th>그룹</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for shop in shop_list %}
+                    <tr>
+                        <td>
+                            <a href="{{ shop.get_absolute_url }}"> 
+                                {{shop.거래처코드}}
+                            </a>
+                        </td>
+                        <td>{{shop.거래처명}}</td>
+                        <td>{{shop.생성시간}}</td>
+                        <td>{{shop.수정시간}}</td>
+                        <td>{{shop.내용}}</td>
+                    <tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
     <script type="text/javascript">
         function button_event(){
         if (confirm("정말 삭제하시겠습니까??") == true){ 
@@ -59,6 +52,13 @@
             return;
         }
         }
-        </script>
-         
-        
+    </script>
+    <script src="{% static "myapp/js/jquery.min.js" %}"></script>
+    <script src="{% static "myapp/js/table_sort.js" %}"></script>
+    <script>
+        $(function(){
+          $('#grades').tablesorter();
+      });
+    </script>
+
+</body>

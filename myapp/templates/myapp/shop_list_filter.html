@@ -1,0 +1,58 @@
+<head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'userfilter/css/bootstrap.min.css' %}" />
+        <!-- <link rel="stylesheet" href="{% static 'userfilter/css/sort.css' %}" /> -->
+            <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" />
+            <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css" type="text/css" />
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.bootstrap.min.css" type="text/css" />
+            <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+      </head>
+      
+      {% load widget_tweaks %}
+      <form method="get"> 
+        <div class="well">
+          <h4 style="margin-top: 0">Filter</h4>
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              거래처코드<!-- {{filter.form.거래처코드.label_tag}} -->
+              {% render_field filter.form.거래처코드 class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              거래처명
+              {% render_field filter.form.거래처명 class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              내용
+              {% render_field filter.form.내용 class="form-control" %}
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> Search
+          </button>
+        </div>
+      </form>
+      
+      <table id="grades" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>거래처코드</th> <th>거래처명</th> <th>내용</th>
+            <th>생성시간</th> <th>수정시간</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in filter.qs %}
+            <tr>
+              <td>{{user.거래처코드}}</td>
+              <td>{{user.거래처명}}</td>
+              <td>{{user.내용}}</td>
+              <td>{{user.생성시간}}</td>
+              <td>{{user.수정시간}}</td>
+          {% endfor %}
+        </tbody>
+      </table>
+      <script src="{% static "myapp/js/jquery.min.js" %}"></script>
+      <script src="{% static "myapp/js/table_sort.js" %}"></script>
+      <script src="{% static "myapp/js/sort.js" %}"></script>
+    

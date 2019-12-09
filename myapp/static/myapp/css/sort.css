@@ -1,0 +1,23 @@
+table#grades tr.table-title {
+    font-weight: bold;
+    font-size: 1.2em; }
+  table#grades tr:nth-child(even) {
+    background: #dadada; }
+  table#grades thead {
+    cursor: pointer;
+    background: #c9dff0; }
+  table#grades thead tr th {
+    font-weight: bold;
+    padding: 12px 30px;
+    padding-left: 42px; }
+  table#grades thead tr th span {
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%; }
+  .center-text {
+    text-align: center; }
+  .left-text {
+    text-align: left; }
+  .center {
+    margin: 0 auto; }
+  
